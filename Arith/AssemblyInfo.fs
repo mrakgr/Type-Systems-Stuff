@@ -1,4 +1,4 @@
-﻿namespace Type_Systems_Stuff.AssemblyInfo
+﻿namespace Arith.AssemblyInfo
 
 open System.Reflection
 open System.Runtime.CompilerServices
@@ -7,11 +7,11 @@ open System.Runtime.InteropServices
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[<assembly: AssemblyTitle("Type Systems Stuff")>]
+[<assembly: AssemblyTitle("Arith")>]
 [<assembly: AssemblyDescription("")>]
 [<assembly: AssemblyConfiguration("")>]
 [<assembly: AssemblyCompany("")>]
-[<assembly: AssemblyProduct("Type Systems Stuff")>]
+[<assembly: AssemblyProduct("Arith")>]
 [<assembly: AssemblyCopyright("Copyright ©  2017")>]
 [<assembly: AssemblyTrademark("")>]
 [<assembly: AssemblyCulture("")>]
@@ -22,7 +22,7 @@ open System.Runtime.InteropServices
 [<assembly: ComVisible(false)>]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[<assembly: Guid("648097b3-b892-4181-afa4-6a1e0f783500")>]
+[<assembly: Guid("732a8603-f29b-4ec3-9d24-07abb5af1ef9")>]
 
 // Version information for an assembly consists of the following four values:
 // 
