@@ -16,6 +16,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Typed Arith", "Typed Arith\
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Simply Typed Lambda Calculus", "Simply Typed Lambda Calculus\Simply Typed Lambda Calculus.fsproj", "{BEF5A057-2EF0-4C89-8516-45C046774676}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Reconstruction", "Reconstruction\Reconstruction.fsproj", "{F9E60954-7017-4780-BB64-C0AE4FF7F5A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,10 @@ Global
 		{BEF5A057-2EF0-4C89-8516-45C046774676}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEF5A057-2EF0-4C89-8516-45C046774676}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEF5A057-2EF0-4C89-8516-45C046774676}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9E60954-7017-4780-BB64-C0AE4FF7F5A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9E60954-7017-4780-BB64-C0AE4FF7F5A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9E60954-7017-4780-BB64-C0AE4FF7F5A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9E60954-7017-4780-BB64-C0AE4FF7F5A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
