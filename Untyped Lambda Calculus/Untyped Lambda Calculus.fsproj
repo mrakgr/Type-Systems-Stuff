@@ -52,6 +52,7 @@
     <Compile Include="Bindings.fs" />
     <Compile Include="FullUntypedSyntax.fs" />
     <Compile Include="FullUntyped.fs" />
+    <None Include="readme.md" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
