@@ -56,7 +56,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Bindings.fs" />
-    <Compile Include="Arith.fs" />
+    <Compile Include="Main.fs" />
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

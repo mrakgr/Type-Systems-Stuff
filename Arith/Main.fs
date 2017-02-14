@@ -1,4 +1,7 @@
-﻿type Info = FI of string * int64 * int64 | UNKNOWN
+﻿// ---------------------------------------------------------------------- 
+// Langauge definitions
+
+type Info = FI of string * int64 * int64 | UNKNOWN
 
 let dummyinfo = UNKNOWN
 let createInfo f l c = FI(f, l, c)
@@ -15,8 +18,8 @@ type Term =
 //type Command =
 //    | Eval of Info * Term
 
-(* ---------------------------------------------------------------------- *)
-(* Parser *)
+// ---------------------------------------------------------------------- 
+// Parser
 
 open FParsec
 
@@ -32,7 +35,7 @@ let getInfo (s: CharStream) = Reply(createInfo s.Name s.Line s.Column)
 
 let parseTermParenths = between (pchar '(') (pchar ')') parseTerm
 let parseTermInner = 
-    [|spaces >>. parseTermParenths; spaces1 >>. parseTerm|]
+    [|spaces >>. parseTermParenths; spaces1 >>. parseTerm .>> (spaces1 <|> followedByL (skipAnyOf [|';';')'|]) "; or )")|]
     |> Array.map attempt
     |> choice
 let parseTermOuter = spaces >>. (parseTermParenths <|> parseTerm) .>> (skipChar ';' <|> eof)
@@ -51,8 +54,8 @@ let pZero = parseUnExpr "0" TmZero
 let pIf = 
     pipe4 
         (pstring "if" >>. parseTermInner)
-        (spaces1 >>. pstring "then" >>. parseTermInner)
-        (spaces1 >>. pstring "else" >>. parseTermInner)
+        (pstring "then" >>. parseTermInner)
+        (pstring "else" >>. parseTermInner)
         getInfo
         (fun t1 t2 t3 info -> TmIf(info,t1,t2,t3))
 
@@ -62,8 +65,8 @@ let pIsZero = parseBiExpr "iszero" TmIsZero
 
 parseTermImpl := choice [pTrue;pFalse;pZero;pIf;pSucc;pPred;pIsZero]
 
-(* ---------------------------------------------------------------------- *)
-(* Printers *)
+// ----------------------------------------------------------------------
+// Printers
 
 let printInfo =
   (* In the text of the book, file positions in error messages are replaced
@@ -72,28 +75,49 @@ let printInfo =
     FI(f,l,c) -> sprintf "%s:%i.%i:" f l c
   | UNKNOWN -> "<Unknown file and line>: "
 
-let rec printTerm = function
+type PrintTermNumTypes =
+| PInt of int
+| PString of string
+
+let strip_num_type = function
+    | PInt x -> x |> string
+    | PString x -> x
+
+let rec succ_case t =
+    match printTermNum t with
+    | PInt x -> PInt (x + 1)
+    | PString x -> PString <| sprintf "succ(%s)" x
+and pred_case t =
+    match printTermNum t with
+    | PInt x -> PInt (x - 1 |> max 0)
+    | PString x -> PString <| sprintf "pred(%s)" x
+and printTerm = function
     | TmTrue(_) -> "true"
     | TmFalse(_) -> "false"
     | TmIf(_,t1,t2,t3) -> 
         sprintf "(if %s then %s else %s)" (printTerm t1) (printTerm t2) (printTerm t3)
     | TmZero(_) -> "0"
-    | TmSucc(_,t) -> sprintf "succ(%s)" (printTerm t)
-    | TmPred(_,t) -> sprintf "pred(%s)" (printTerm t)
+    | TmSucc(_,t) -> succ_case t |> strip_num_type
+    | TmPred(_,t) -> pred_case t |> strip_num_type
     | TmIsZero(_,t) -> sprintf "iszero(%s)" (printTerm t)
+and printTermNum = function
+    | TmZero(_) -> PInt 0
+    | TmSucc(_,t) -> succ_case t
+    | TmPred(_,t) -> pred_case t
+    | x -> PString <| printTerm x
 
 // I will skip those error functions in arith that are not being used.
 
-(* ---------------------------------------------------------------------- *)
-(* Extracting file info *)
+// ----------------------------------------------------------------------
+// Extracting file info 
 
 let tmInfo = function
     | TmTrue(fi) | TmFalse(fi) | TmIf(fi,_,_,_)
     | TmZero(fi) | TmSucc(fi,_) | TmPred(fi,_)
     | TmIsZero(fi,_) -> fi 
 
-(* ---------------------------------------------------------------------- *)
-(* Evaluation functions *)
+// ----------------------------------------------------------------------
+// Evaluation functions
 
 exception NoRuleApplies
 
@@ -139,8 +163,8 @@ let rec eval t =
         in eval t'
     with NoRuleApplies -> t
 
-(* ---------------------------------------------------------------------- *)
-(* Main *)
+// ---------------------------------------------------------------------- 
+// Main 
 
 // Unlike the Ocaml version which is ran from the command line, I'll just slap a GUI here.
 
@@ -163,21 +187,14 @@ let evalAll test =
 
 open System
 open System.Windows
-open System.Windows.Input
 open System.Windows.Controls
-open System.Windows.Controls.Primitives
 open System.Windows.Media
-open System.Windows.Media.Imaging
-open System.Windows.Shapes
-open System.Windows.Documents
-open System.Windows.Threading
-open System.Windows.Data
 
 open Bindings
 
 [<STAThread; EntryPoint>]
 let main args =
-    let win = Window(Title="Arith",SizeToContent=SizeToContent.WidthAndHeight,MinWidth=500.0,MinHeight=300.0)
+    let win = Window(Title="Arith",SizeToContent=SizeToContent.WidthAndHeight,MinWidth=500.0,MinHeight=300.0,FontFamily=FontFamily("Consolas"))
     let grid =
         Grid()
         |> addRowDefs
@@ -197,7 +214,7 @@ let main args =
         |> addGrid grid 1 0
     
     let txt_code =
-        TextBox(Text=test)
+        TextBox(Text=test,AcceptsReturn=true)
         |> addGrid grid 0 0
 
     btn_eval.Click.Add <| fun _ ->
