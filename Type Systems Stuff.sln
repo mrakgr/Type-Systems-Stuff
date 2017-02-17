@@ -18,6 +18,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Simply Typed Lambda Calculu
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Reconstruction", "Reconstruction\Reconstruction.fsproj", "{F9E60954-7017-4780-BB64-C0AE4FF7F5A5}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Oleg's Algorithm W", "Oleg's Algorithm W\Oleg's Algorithm W.fsproj", "{4EA607EF-931F-44AF-9C4E-BE937313C508}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{F9E60954-7017-4780-BB64-C0AE4FF7F5A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9E60954-7017-4780-BB64-C0AE4FF7F5A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9E60954-7017-4780-BB64-C0AE4FF7F5A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EA607EF-931F-44AF-9C4E-BE937313C508}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EA607EF-931F-44AF-9C4E-BE937313C508}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EA607EF-931F-44AF-9C4E-BE937313C508}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EA607EF-931F-44AF-9C4E-BE937313C508}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
