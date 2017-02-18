@@ -32,8 +32,8 @@ data TVE = TVE Int (IntMap Typ)
 type TEnv = Map VarName Typ
 data MainEnv = MainEnv {tve :: TVE, tenv :: TEnv}
 
-get_tenv = liftM tenv get
-get_tve = liftM tve get
+get_tenv = fmap tenv get
+get_tve = fmap tve get
 modify_tenv f = modify (\x -> x { tenv = f $ tenv x})
 modify_tve f = modify (\x -> x { tve = f $ tve x})
 
@@ -102,20 +102,23 @@ unify t1 t2 = do
   unify' t1' t2'
 
 lkup x = do
-  tenv <- get_tenv
-  M.lookup x tenv >>= \case
+  tenv' <- get_tenv
+  case M.lookup x tenv' of
     Just x -> return x
-    Nothing -> return $ throwError $ Left $ "Unbound variable " ++ x
+    Nothing -> throwError $ Left $ "Unbound variable " ++ x
 env0 = M.empty
 ext k v = modify_tenv (M.insert k v)
---
--- -- teval' :: TEnv -> Term -> TVE -> (Typ,TVE)
--- teval' = \case
---   V x -> lkup x
---   L x e -> do
---     tv <- newtv
---     te <- teval' (ext x tv tenv) e
---     return (tv :> te)
+
+-- teval' :: TEnv -> Term -> TVE -> (Typ,TVE)
+teval' = \case
+  V x -> lkup x
+  L x e -> do
+    tv <- newtv
+    backup <- get
+    ext x tv
+    te <- teval' e
+    put backup
+    return (tv :> te)
 --     A e1 e2 -> do
 --       t1 <- teval' tenv e1
 --       t2 <- teval' tenv e2
