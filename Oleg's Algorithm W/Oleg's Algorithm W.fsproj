@@ -48,6 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
+    <None Include="HaskellVersion.hs" />
+    <None Include="Accumulator.fsx" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
   </ItemGroup>

@@ -1,15 +1,23 @@
 ﻿// From http://okmij.org/ftp/Computation/FLOLAC/lecture.pdf
 // Interpreting Types as Abstract Values
 
+type Result<'a,'b> = Succ of 'b | Fail of 'a
+
+let either f s = function
+    | Succ x -> s x
+    | Fail x -> f x
+
+let (|?>) x f = either Fail f x
+
 type VarName = string
 type Term =
-  | V of VarName
-  | L of VarName * Term
-  | A of Term * Term
-  | I of int
-  | Plus of Term * Term
-  | IFZ of Term * Term * Term
-  | Fix of Term
+    | V of VarName
+    | L of VarName * Term
+    | A of Term * Term
+    | I of int
+    | Plus of Term * Term
+    | IFZ of Term * Term * Term
+    | Fix of Term
 
 type TVarName = int
 type Typ = TInt | TArr of Typ * Typ | TV of TVarName
@@ -38,15 +46,7 @@ let tvchase tve = function
         | Some t -> tvsub tve t
         | None -> t
     | t -> t
-
-type Result<'a,'b> = Succ of 'b | Fail of 'a
-
-let either f s = function
-    | Succ x -> s x
-    | Fail x -> f x
-
-let (|?>) x f = either Fail f x
-
+    
 let rec unify t1 t2 tve = 
     // If either t1 or t2 are type variables, they must be unbound
     let rec unify' t1 t2 tve =
