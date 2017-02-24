@@ -34,8 +34,8 @@ data TVE = TVE Int (IntMap Typ) deriving Show
 type TEnv = Map VarName Typ
 data MainEnv = MainEnv {tve :: TVE, tenv :: TEnv} deriving Show
 
-get_tenv = fmap tenv get
-get_tve = fmap tve get
+get_tenv = gets tenv
+get_tve = gets tve
 modify_tenv f = modify (\x -> x { tenv = f $ tenv x})
 modify_tve f = modify (\x -> x { tve = f $ tve x})
 
