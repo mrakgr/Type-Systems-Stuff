@@ -19,5 +19,12 @@ Today I will charge my energy and tomorrow I will make my fourth attempt at maki
 Some good references on bidirectional typechecking:
 
 https://people.mpi-sws.org/~joshua/bitype.pdf
+
 http://davidchristiansen.dk/tutorials/bidirectional.pdf
+
 https://jozefg.bitbucket.io/posts/2014-11-22-bidir.html
+
+There are various resources for learning Algorithm W as well on the net, but this one is the best of the bunch:
+
+http://okmij.org/ftp/Computation/FLOLAC/lecture.pdf (There is a translation of this paper from Haskell to F# inside the `Oleg's Algorithm W` directory.)
+
